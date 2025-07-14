@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { ArrowLeft, Star, Send, CheckCircle } from 'lucide-react'
+import { ArrowLeft, Star, Send, CheckCircle, MapPin } from 'lucide-react'
 
-function FeedbackScreen({ scannedData, onSubmit, onBack }) {
+function FeedbackScreen({ businessData, onSubmit, onBack }) {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -15,16 +15,14 @@ function FeedbackScreen({ scannedData, onSubmit, onBack }) {
 
     setIsSubmitting(true)
     
-    // Simuliere API-Aufruf
-    setTimeout(() => {
-      setIsSubmitting(false)
-      onSubmit({
+    try {
+      await onSubmit({
         rating,
-        comment,
-        scannedData,
-        timestamp: new Date().toISOString()
+        comment
       })
-    }, 1000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const renderStars = () => {
@@ -55,8 +53,14 @@ function FeedbackScreen({ scannedData, onSubmit, onBack }) {
       <div className="feedback-content">
         <div className="business-info">
           <CheckCircle size={24} className="success-icon" />
-          <h3>QR-Code erfolgreich gescannt!</h3>
-          <p className="scanned-data">Code: {scannedData}</p>
+          <h3>{businessData?.name}</h3>
+          {businessData?.description && (
+            <p className="business-description">{businessData.description}</p>
+          )}
+          <div className="business-details">
+            <MapPin size={16} />
+            <span>QR-Code: {businessData?.qr_code}</span>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="feedback-form">
@@ -102,7 +106,11 @@ function FeedbackScreen({ scannedData, onSubmit, onBack }) {
 
         <div className="reward-preview">
           <Gift size={24} />
-          <p>Nach dem Senden erhältst du einen Stempel für deine Belohnungskarte!</p>
+          <p>
+            <strong>Belohnung:</strong> {businessData?.reward_description}
+            <br />
+            <small>Nach {businessData?.reward_threshold} Stempeln einlösbar</small>
+          </p>
         </div>
       </div>
     </div>
