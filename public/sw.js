@@ -2,10 +2,7 @@ const CACHE_NAME = 'fead-v1'
 const urlsToCache = [
   '/',
   '/index.html',
-  '/main.jsx',
-  '/App.jsx',
-  '/App.css',
-  '/style.css'
+  '/manifest.json'
 ]
 
 self.addEventListener('install', (event) => {
