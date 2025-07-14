@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { AuthProvider, useAuth } from './contexts/AuthContext'
-import StartScreen from './components/StartScreen'
-import QRScanner from './components/QRScanner'
-import FeedbackScreen from './components/FeedbackScreen'
-import AuthScreen from './components/AuthScreen'
-import StampCard from './components/StampCard'
-import ProfileScreen from './components/ProfileScreen'
+import { AuthProvider, useAuth } from './src/contexts/AuthContext'
+import StartScreen from './src/components/StartScreen'
+import QRScanner from './src/components/QRScanner'
+import FeedbackScreen from './src/components/FeedbackScreen'
+import AuthScreen from './src/components/AuthScreen'
+import StampCard from './src/components/StampCard'
+import ProfileScreen from './src/components/ProfileScreen'
 import './App.css'
 
 function AppContent() {
